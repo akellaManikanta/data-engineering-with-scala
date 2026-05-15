@@ -20,7 +20,6 @@ libraryDependencies ++= Seq(
 
   // Logging
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
-  "ch.qos.logback" % "logback-classic" % "1.5.18",
 
   // Faker Data generation Library
   "net.datafaker" % "datafaker" % "2.2.2"
