@@ -22,6 +22,9 @@ libraryDependencies ++= Seq(
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
 
   // Faker Data generation Library
-  "net.datafaker" % "datafaker" % "2.2.2"
+  "net.datafaker" % "datafaker" % "2.2.2",
+
+  // configuration
+  "com.typesafe" % "config" % "1.4.3"
 
 )
