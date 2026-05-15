@@ -4,6 +4,8 @@ version := "0.1"
 
 scalaVersion := "2.13.18"
 
+val sparkVersion = "3.5.1"
+
 libraryDependencies ++= Seq(
 
   // Kafka-client and Kafka-Streams
@@ -11,7 +13,10 @@ libraryDependencies ++= Seq(
   "org.apache.kafka" %% "kafka-streams-scala" % "3.7.0",
 
   //spark
-  "org.apache.spark" %% "spark-sql" % "3.5.1",
+  "org.apache.spark" %% "spark-core" % sparkVersion,
+  "org.apache.spark" %% "spark-sql" %sparkVersion,
+  "org.apache.spark" %% "spark-streaming" % sparkVersion,
+  "org.apache.spark" %% "spark-sql-kafka-0-10" % sparkVersion,
 
   // Logging
   "com.typesafe.scala-logging" %% "scala-logging" % "3.9.5",
@@ -19,4 +24,5 @@ libraryDependencies ++= Seq(
 
   // Faker Data generation Library
   "net.datafaker" % "datafaker" % "2.2.2"
+
 )
