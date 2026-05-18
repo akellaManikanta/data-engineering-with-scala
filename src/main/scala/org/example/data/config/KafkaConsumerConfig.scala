@@ -41,8 +41,6 @@ case class KafkaConsumerConfig(
 
         props
     }
-
-
 }
 
 object KafkaConsumerConfig {

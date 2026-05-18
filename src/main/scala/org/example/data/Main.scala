@@ -43,8 +43,8 @@ object Main extends App with LazyLogging {
         }
     }
 
-    logger.info(s"Source Configuration type is $sourceConfig")
-    logger.info(s"Target Configuration type is $targetConfig")
+    logger.info(s"Source Configuration type is ${sourceConfig.getClass.getSimpleName}")
+    logger.info(s"Target Configuration type is ${targetConfig.getClass.getSimpleName}")
 
     logger.info("Completed the Data Pipeline.")
 }
