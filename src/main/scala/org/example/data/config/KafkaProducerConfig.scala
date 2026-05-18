@@ -1,30 +1,34 @@
 package org.example.data.config
 
 import com.typesafe.config.Config
+import org.example.data.enums.{KafkaAcknowledgementEnum, KafkaMessageSendStyle}
+import org.example.data.enums.KafkaAcknowledgementEnum.KafkaAcknowledgementEnum
+import org.example.data.enums.KafkaMessageSendStyle.KafkaMessageSendStyle
 
 import java.util.Properties
 
 
 case class KafkaProducerConfig(
-                                  bootstrapServers: String,
-                                  topicName: String,
-                                  acknowledgement: Option[String],
-                                  retries: Option[Int],
-                                  batchSize: Option[Int],
-                                  compressionType: Option[String],
-                                  clientId: Option[String],
-                                  retryBackoffMs: Option[Int],
-                                  deliveryTimeoutMs: Option[Int],
-                                  requestTimeoutMs: Option[Int],
-                                  lingerMs: Option[Int],
-                                  bufferMemory: Option[Int],
-                                  maxInFlightRequestsPerConnection: Option[Int],
-                                  enableIdempotence: Option[Boolean],
-                                  transactionalId: Option[String],
-                                  maxBlockMs: Option[Int],
-                                  metadataMaxAgeMs: Option[Int],
-                                  keySerializer: String = "org.apache.kafka.common.serialization.StringSerializer",
-                                  valueSerializer: String = "org.apache.kafka.common.serialization.StringSerializer"
+                                bootstrapServers: String,
+                                topicName: String,
+                                acknowledgement: KafkaAcknowledgementEnum,
+                                sendStyle: KafkaMessageSendStyle,
+                                retries: Option[Int],
+                                batchSize: Option[Int],
+                                compressionType: Option[String],
+                                clientId: Option[String],
+                                retryBackoffMs: Option[Int],
+                                deliveryTimeoutMs: Option[Int],
+                                requestTimeoutMs: Option[Int],
+                                lingerMs: Option[Int],
+                                bufferMemory: Option[Int],
+                                maxInFlightRequestsPerConnection: Option[Int],
+                                enableIdempotence: Option[Boolean],
+                                transactionalId: Option[String],
+                                maxBlockMs: Option[Int],
+                                metadataMaxAgeMs: Option[Int],
+                                keySerializer: String = "org.apache.kafka.common.serialization.StringSerializer",
+                                valueSerializer: String = "org.apache.kafka.common.serialization.StringSerializer"
                               ) extends TargetConfig {
     /**
      * Build and return source-specific properties.
@@ -71,7 +75,8 @@ object KafkaProducerConfig {
         KafkaProducerConfig(
             bootstrapServers = producerConfig.getString("bootstrapServers"),
             topicName = producerConfig.getString("topicName"),
-            acknowledgement = if (producerConfig.hasPath("acknowledgement")) Some(producerConfig.getString("acknowledgement")) else None,
+            acknowledgement = if (producerConfig.hasPath("acknowledgement")) KafkaAcknowledgementEnum.withName(producerConfig.getString("acknowledgement").toUpperCase()) else KafkaAcknowledgementEnum.withName("ZERO"),
+            sendStyle = if (producerConfig.hasPath("sendStyle")) KafkaMessageSendStyle.withName(producerConfig.getString("sendStyle").toUpperCase()) else KafkaMessageSendStyle.withName("FIRE_AND_FORGET"),
             retries = if (producerConfig.hasPath("retries")) Some(producerConfig.getInt("batchSize")) else None,
             batchSize = if (producerConfig.hasPath("batchSize")) Some(producerConfig.getInt("batchSize")) else None,
             compressionType = if (producerConfig.hasPath("compressionType")) Some(producerConfig.getString("compressionType")) else None,
